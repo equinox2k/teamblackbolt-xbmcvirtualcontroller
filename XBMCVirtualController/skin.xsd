@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="skin">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="version" type="xs:decimal" />
+        <xs:element name="debug" type="xs:boolean" />
+        <xs:element name="credits">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="skinname" type="xs:string" />
+              <xs:element name="info" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="layout">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="width" type="xs:unsignedByte" />
+              <xs:element name="height" type="xs:unsignedShort" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="images">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="image">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="xpos" type="xs:unsignedByte" />
+                    <xs:element name="ypos" type="xs:unsignedByte" />
+                    <xs:element name="width" type="xs:unsignedByte" />
+                    <xs:element name="height" type="xs:unsignedShort" />
+                    <xs:element name="texture" type="xs:string" />
+                  </xs:sequence>
+                  <xs:attribute name="id" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="buttons">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="button">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="xpos" type="xs:unsignedByte" />
+                    <xs:element name="ypos" type="xs:unsignedShort" />
+                    <xs:element name="width" type="xs:unsignedByte" />
+                    <xs:element name="height" type="xs:unsignedByte" />
+                    <xs:element name="texture" />
+                    <xs:element name="textureselect" />
+                  </xs:sequence>
+                  <xs:attribute name="name" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

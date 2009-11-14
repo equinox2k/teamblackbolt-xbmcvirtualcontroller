@@ -1,0 +1,436 @@
+<skin>
+  <version>1.0</version>
+  <debug>false</debug>
+  <credits>
+    <skinname>Bradley - Blue</skinname>
+    <info>by Team Blackbolt</info>
+  </credits>
+  <layout>
+    <width>244</width>
+    <height>679</height>
+    <texture>images\remote.png</texture>
+  </layout>
+  <controls>
+    <control type="image" id="led">
+      <xpos>106</xpos>
+      <ypos>18</ypos>
+      <width>24</width>
+      <height>30</height>
+      <texture>images\led.png</texture>
+    </control>
+    <control type="button" id="closeprogram">
+      <xpos>27</xpos>
+      <ypos>15</ypos>
+      <width>43</width>
+      <height>23</height>
+      <texturehover>images\closeprogram.png</texturehover>
+      <textureclick>images\closeprogram.png</textureclick>
+      <buttoncommand>closeprogram</buttoncommand>
+    </control>
+    <control type="button" id="power">
+      <xpos>159</xpos>
+      <ypos>15</ypos>
+      <width>55</width>
+      <height>29</height>
+      <texturehover>images\power.png</texturehover>
+      <textureclick>images\power.png</textureclick>
+      <buttoncommand>power</buttoncommand>
+    </control>
+    <control type="button" id="mytv">
+      <xpos>27</xpos>
+      <ypos>57</ypos>
+      <width>34</width>
+      <height>29</height>
+      <texturehover>images\mytv.png</texturehover>
+      <textureclick>images\mytv.png</textureclick>
+      <buttoncommand>mytv</buttoncommand>
+    </control>
+    <control type="button" id="mymusic">
+      <xpos>76</xpos>
+      <ypos>57</ypos>
+      <width>35</width>
+      <height>29</height>
+      <texturehover>images\mymusic.png</texturehover>
+      <textureclick>images\mymusic.png</textureclick>
+      <buttoncommand>mymusic</buttoncommand>
+    </control>
+    <control type="button" id="mypictures">
+      <xpos>126</xpos>
+      <ypos>57</ypos>
+      <width>35</width>
+      <height>29</height>
+      <texturehover>images\mypictures.png</texturehover>
+      <textureclick>images\mypictures.png</textureclick>
+      <buttoncommand>mypictures</buttoncommand>
+    </control>
+    <control type="button" id="myvideo">
+      <xpos>175</xpos>
+      <ypos>57</ypos>
+      <width>35</width>
+      <height>30</height>
+      <texturehover>images\myvideo.png</texturehover>
+      <textureclick>images\myvideo.png</textureclick>
+      <buttoncommand>myvideo</buttoncommand>
+    </control>
+    <control type="button" id="stop">
+      <xpos>101</xpos>
+      <ypos>94</ypos>
+      <width>35</width>
+      <height>35</height>
+      <texturehover>images\stop.png</texturehover>
+      <textureclick>images\stop.png</textureclick>
+      <buttoncommand>stop</buttoncommand>
+    </control>
+    <control type="button" id="record">
+      <xpos>50</xpos>
+      <ypos>104</ypos>
+      <width>35</width>
+      <height>34</height>
+      <texturehover>images\record.png</texturehover>
+      <textureclick>images\record.png</textureclick>
+      <buttoncommand>record</buttoncommand>
+    </control>
+    <control type="button" id="pause">
+      <xpos>152</xpos>
+      <ypos>104</ypos>
+      <width>35</width>
+      <height>34</height>
+      <texturehover>images\pause.png</texturehover>
+      <textureclick>images\pause.png</textureclick>
+      <buttoncommand>pause</buttoncommand>
+    </control>
+    <control type="button" id="play">
+      <xpos>89</xpos>
+      <ypos>137</ypos>
+      <width>59</width>
+      <height>58</height>
+      <texturehover>images\play.png</texturehover>
+      <textureclick>images\play.png</textureclick>
+      <buttoncommand>play</buttoncommand>
+    </control>
+    <control type="button" id="reverse">
+      <xpos>27</xpos>
+      <ypos>144</ypos>
+      <width>36</width>
+      <height>34</height>
+      <texturehover>images\reverse.png</texturehover>
+      <textureclick>images\reverse.png</textureclick>
+      <buttoncommand>reverse</buttoncommand>
+    </control>
+    <control type="button" id="forward">
+      <xpos>174</xpos>
+      <ypos>144</ypos>
+      <width>35</width>
+      <height>35</height>
+      <texturehover>images\forward.png</texturehover>
+      <textureclick>images\forward.png</textureclick>
+      <buttoncommand>forward</buttoncommand>
+    </control>
+    <control type="button" id="skipminus">
+      <xpos>50</xpos>
+      <ypos>184</ypos>
+      <width>35</width>
+      <height>34</height>
+      <texturehover>images\skipminus.png</texturehover>
+      <textureclick>images\skipminus.png</textureclick>
+      <buttoncommand>skipminus</buttoncommand>
+    </control>
+    <control type="button" id="skipplus">
+      <xpos>152</xpos>
+      <ypos>184</ypos>
+      <width>35</width>
+      <height>34</height>
+      <texturehover>images\skipplus.png</texturehover>
+      <textureclick>images\skipplus.png</textureclick>
+      <buttoncommand>skipplus</buttoncommand>
+    </control>
+    <control type="button" id="up">
+      <xpos>103</xpos>
+      <ypos>220</ypos>
+      <width>30</width>
+      <height>28</height>
+      <texturehover>images\up.png</texturehover>
+      <textureclick>images\up.png</textureclick>
+      <buttoncommand>up</buttoncommand>
+    </control>
+    <control type="button" id="back">
+      <xpos>25</xpos>
+      <ypos>232</ypos>
+      <width>33</width>
+      <height>33</height>
+      <texturehover>images\back.png</texturehover>
+      <textureclick>images\back.png</textureclick>
+      <buttoncommand>back</buttoncommand>
+    </control>
+    <control type="button" id="info">
+      <xpos>178</xpos>
+      <ypos>232</ypos>
+      <width>34</width>
+      <height>33</height>
+      <texturehover>images\info.png</texturehover>
+      <textureclick>images\info.png</textureclick>
+      <buttoncommand>info</buttoncommand>
+    </control>
+    <control type="button" id="select1">
+      <xpos>107</xpos>
+      <ypos>258</ypos>
+      <width>22</width>
+      <height>23</height>
+      <texturehover>images\select1.png</texturehover>
+      <textureclick>images\select1.png</textureclick>
+      <buttoncommand>select</buttoncommand>
+    </control>
+    <control type="button" id="right">
+      <xpos>140</xpos>
+      <ypos>259</ypos>
+      <width>27</width>
+      <height>23</height>
+      <texturehover>images\right.png</texturehover>
+      <textureclick>images\right.png</textureclick>
+      <buttoncommand>right</buttoncommand>
+    </control>
+    <control type="button" id="left">
+      <xpos>70</xpos>
+      <ypos>260</ypos>
+      <width>26</width>
+      <height>22</height>
+      <texturehover>images\left.png</texturehover>
+      <textureclick>images\left.png</textureclick>
+      <buttoncommand>left</buttoncommand>
+    </control>
+    <control type="button" id="down">
+      <xpos>107</xpos>
+      <ypos>292</ypos>
+      <width>22</width>
+      <height>27</height>
+      <texturehover>images\down.png</texturehover>
+      <textureclick>images\down.png</textureclick>
+      <buttoncommand>down</buttoncommand>
+    </control>
+    <control type="button" id="volumeplus">
+      <xpos>22</xpos>
+      <ypos>300</ypos>
+      <width>45</width>
+      <height>46</height>
+      <texturehover>images\volumeplus.png</texturehover>
+      <textureclick>images\volumeplus.png</textureclick>
+      <buttoncommand>volumeplus</buttoncommand>
+    </control>
+    <control type="button" id="pageplus">
+      <xpos>169</xpos>
+      <ypos>301</ypos>
+      <width>47</width>
+      <height>46</height>
+      <texturehover>images\pageplus.png</texturehover>
+      <textureclick>images\pageplus.png</textureclick>
+      <buttoncommand>pageplus</buttoncommand>
+    </control>
+    <control type="button" id="start">
+      <xpos>92</xpos>
+      <ypos>332</ypos>
+      <width>53</width>
+      <height>37</height>
+      <texturehover>images\start.png</texturehover>
+      <textureclick>images\start.png</textureclick>
+      <buttoncommand>start</buttoncommand>
+    </control>
+    <control type="button" id="volumeminus">
+      <xpos>42</xpos>
+      <ypos>350</ypos>
+      <width>38</width>
+      <height>37</height>
+      <texturehover>images\volumeminus.png</texturehover>
+      <textureclick>images\volumeminus.png</textureclick>
+      <buttoncommand>volumeminus</buttoncommand>
+    </control>
+    <control type="button" id="pageminus">
+      <xpos>155</xpos>
+      <ypos>352</ypos>
+      <width>40</width>
+      <height>39</height>
+      <texturehover>images\pageminus.png</texturehover>
+      <textureclick>images\pageminus.png</textureclick>
+      <buttoncommand>pageminus</buttoncommand>
+    </control>
+    <control type="button" id="mute">
+      <xpos>86</xpos>
+      <ypos>380</ypos>
+      <width>65</width>
+      <height>32</height>
+      <texturehover>images\mute.png</texturehover>
+      <textureclick>images\mute.png</textureclick>
+      <buttoncommand>mute</buttoncommand>
+    </control>
+    <control type="button" id="recordtv">
+      <xpos>27</xpos>
+      <ypos>413</ypos>
+      <width>34</width>
+      <height>28</height>
+      <texturehover>images\recordtv.png</texturehover>
+      <textureclick>images\recordtv.png</textureclick>
+      <buttoncommand>recordtv</buttoncommand>
+    </control>
+    <control type="button" id="menu">
+      <xpos>175</xpos>
+      <ypos>413</ypos>
+      <width>35</width>
+      <height>29</height>
+      <texturehover>images\menu.png</texturehover>
+      <textureclick>images\menu.png</textureclick>
+      <buttoncommand>menu</buttoncommand>
+    </control>
+    <control type="button" id="title">
+      <xpos>76</xpos>
+      <ypos>423</ypos>
+      <width>35</width>
+      <height>29</height>
+      <texturehover>images\title.png</texturehover>
+      <textureclick>images\title.png</textureclick>
+      <buttoncommand>title</buttoncommand>
+    </control>
+    <control type="button" id="livetv">
+      <xpos>126</xpos>
+      <ypos>423</ypos>
+      <width>34</width>
+      <height>29</height>
+      <texturehover>images\livetv.png</texturehover>
+      <textureclick>images\livetv.png</textureclick>
+      <buttoncommand>livetv</buttoncommand>
+    </control>
+    <control type="button" id="one">
+      <xpos>27</xpos>
+      <ypos>464</ypos>
+      <width>56</width>
+      <height>30</height>
+      <texturehover>images\one.png</texturehover>
+      <textureclick>images\one.png</textureclick>
+      <buttoncommand>one</buttoncommand>
+    </control>
+    <control type="button" id="two">
+      <xpos>90</xpos>
+      <ypos>464</ypos>
+      <width>57</width>
+      <height>30</height>
+      <texturehover>images\two.png</texturehover>
+      <textureclick>images\two.png</textureclick>
+      <buttoncommand>two</buttoncommand>
+    </control>
+    <control type="button" id="three">
+      <xpos>154</xpos>
+      <ypos>464</ypos>
+      <width>56</width>
+      <height>30</height>
+      <texturehover>images\three.png</texturehover>
+      <textureclick>images\three.png</textureclick>
+      <buttoncommand>three</buttoncommand>
+    </control>
+    <control type="button" id="four">
+      <xpos>27</xpos>
+      <ypos>500</ypos>
+      <width>56</width>
+      <height>30</height>
+      <texturehover>images\four.png</texturehover>
+      <textureclick>images\four.png</textureclick>
+      <buttoncommand>four</buttoncommand>
+    </control>
+    <control type="button" id="five">
+      <xpos>90</xpos>
+      <ypos>500</ypos>
+      <width>57</width>
+      <height>30</height>
+      <texturehover>images\five.png</texturehover>
+      <textureclick>images\five.png</textureclick>
+      <buttoncommand>five</buttoncommand>
+    </control>
+    <control type="button" id="six">
+      <xpos>154</xpos>
+      <ypos>500</ypos>
+      <width>56</width>
+      <height>30</height>
+      <texturehover>images\six.png</texturehover>
+      <textureclick>images\six.png</textureclick>
+      <buttoncommand>six</buttoncommand>
+    </control>
+    <control type="button" id="seven">
+      <xpos>27</xpos>
+      <ypos>536</ypos>
+      <width>56</width>
+      <height>31</height>
+      <texturehover>images\seven.png</texturehover>
+      <textureclick>images\seven.png</textureclick>
+      <buttoncommand>seven</buttoncommand>
+    </control>
+    <control type="button" id="eight">
+      <xpos>90</xpos>
+      <ypos>536</ypos>
+      <width>57</width>
+      <height>31</height>
+      <texturehover>images\eight.png</texturehover>
+      <textureclick>images\eight.png</textureclick>
+      <buttoncommand>eight</buttoncommand>
+    </control>
+    <control type="button" id="nine">
+      <xpos>154</xpos>
+      <ypos>536</ypos>
+      <width>56</width>
+      <height>31</height>
+      <texturehover>images\nine.png</texturehover>
+      <textureclick>images\nine.png</textureclick>
+      <buttoncommand>nine</buttoncommand>
+    </control>
+    <control type="button" id="star">
+      <xpos>27</xpos>
+      <ypos>573</ypos>
+      <width>56</width>
+      <height>30</height>
+      <texturehover>images\star.png</texturehover>
+      <textureclick>images\star.png</textureclick>
+      <buttoncommand>star</buttoncommand>
+    </control>
+    <control type="button" id="zero">
+      <xpos>89</xpos>
+      <ypos>573</ypos>
+      <width>58</width>
+      <height>30</height>
+      <texturehover>images\zero.png</texturehover>
+      <textureclick>images\zero.png</textureclick>
+      <buttoncommand>zero</buttoncommand>
+    </control>
+    <control type="button" id="hash">
+      <xpos>154</xpos>
+      <ypos>573</ypos>
+      <width>56</width>
+      <height>30</height>
+      <texturehover>images\hash.png</texturehover>
+      <textureclick>images\hash.png</textureclick>
+      <buttoncommand>hash</buttoncommand>
+    </control>
+    <control type="button" id="clear">
+      <xpos>27</xpos>
+      <ypos>609</ypos>
+      <width>56</width>
+      <height>30</height>
+      <texturehover>images\clear.png</texturehover>
+      <textureclick>images\clear.png</textureclick>
+      <buttoncommand>clear</buttoncommand>
+    </control>
+    <control type="button" id="display">
+      <xpos>89</xpos>
+      <ypos>609</ypos>
+      <width>58</width>
+      <height>30</height>
+      <texturehover>images\display.png</texturehover>
+      <textureclick>images\display.png</textureclick>
+      <buttoncommand>display</buttoncommand>
+    </control>
+    <control type="button" id="select2">
+      <xpos>154</xpos>
+      <ypos>609</ypos>
+      <width>56</width>
+      <height>30</height>
+      <texturehover>images\select2.png</texturehover>
+      <textureclick>images\select2.png</textureclick>
+      <buttoncommand>select</buttoncommand>
+    </control>
+  </controls>
+</skin>
