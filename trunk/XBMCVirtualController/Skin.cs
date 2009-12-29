@@ -155,8 +155,10 @@ public partial class skinLayout
     private string widthField;
     private string heightField;
     private string textureField;
+    private string alttextureField;
 
     public Image LoadedTexture;
+    public Image LoadedAltTexture;
 
     public string width
     {
@@ -194,6 +196,18 @@ public partial class skinLayout
         }
     }
 
+    public string alttexture
+    {
+        get
+        {
+            return this.alttextureField;
+        }
+        set
+        {
+            this.alttextureField = value;
+        }
+    }
+
 }
 
 [System.SerializableAttribute()]
@@ -206,14 +220,19 @@ public partial class skinControl
     private string heightField;
     private string texturehoverField;
     private string textureclickField;
+    private string alttexturehoverField;
+    private string alttextureclickField;
     private string textureField;
     private string buttoncommandField;
+    private string altbuttoncommandField;
     private string typeField;
     private string idField;
 
-    public Image LoadedTexture;
     public Image LoadedTextureHover;
     public Image LoadedTextureClick;
+    public Image LoadedAltTextureHover;
+    public Image LoadedAltTextureClick;
+    public Image LoadedTexture;
 
     public string xpos
     {
@@ -287,6 +306,30 @@ public partial class skinControl
         }
     }
 
+    public string alttexturehover
+    {
+        get
+        {
+            return this.alttexturehoverField;
+        }
+        set
+        {
+            this.alttexturehoverField = value;
+        }
+    }
+
+    public string alttextureclick
+    {
+        get
+        {
+            return this.alttextureclickField;
+        }
+        set
+        {
+            this.alttextureclickField = value;
+        }
+    }
+
     public string texture
     {
         get
@@ -308,6 +351,18 @@ public partial class skinControl
         set
         {
             this.buttoncommandField = value;
+        }
+    }
+
+    public string altbuttoncommand
+    {
+        get
+        {
+            return this.altbuttoncommandField;
+        }
+        set
+        {
+            this.altbuttoncommandField = value;
         }
     }
 
