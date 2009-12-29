@@ -19,6 +19,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Configuration;
 using XBMC;
+using System.Runtime.InteropServices;
 
 namespace XBMCVirtualController
 {
@@ -40,10 +41,9 @@ namespace XBMCVirtualController
             InitializeComponent();
 
         }
-
+        
         private void Main_Load(object sender, EventArgs e)
         {
-
             if (Properties.Settings.Default.SkinName == "")
             {
                 string[] directories = Directory.GetDirectories(Helper.SkinPath);
@@ -85,6 +85,7 @@ namespace XBMCVirtualController
                 skinEngine = new SkinEngine(this);
                 skinName = Properties.Settings.Default.SkinName;
                 this.Location = Properties.Settings.Default.WindowLocation;
+                toolStripMenuItemSendSingleClick.Checked = Properties.Settings.Default.SendSingleClick;
                 string errorMEssage = skinEngine.LoadSkin(skinName);
                 if (errorMEssage == "")
                     UpdateContextMenu();
@@ -101,15 +102,24 @@ namespace XBMCVirtualController
         {
             if (!errorOccured)
             {
-                Connect connect = new Connect();
-                if (connect.ShowDialog(this) == DialogResult.OK)
+                if (Properties.Settings.Default.AutoConnect)
                 {
-                    eventClient.Connect(connect.Address, connect.Port);
+                    eventClient.Connect(Properties.Settings.Default.Address, Properties.Settings.Default.Port);
                     eventClient.SendHelo("Team Blackbolt - XBMC Virtual Remote", IconType.ICON_PNG, Helper.AppPath + "remotecontrol.png");
                     timerPing.Enabled = true;
                 }
                 else
-                    this.Close();
+                {
+                    Connection connect = new Connection();
+                    if (connect.ShowDialog(this) == DialogResult.OK)
+                    {
+                        eventClient.Connect(connect.Address, connect.Port);
+                        eventClient.SendHelo("Team Blackbolt - XBMC Virtual Remote", IconType.ICON_PNG, Helper.AppPath + "remotecontrol.png");
+                        timerPing.Enabled = true;
+                    }
+                    else
+                        this.Close();
+                }
             }
             else
                 this.Close();
@@ -131,6 +141,7 @@ namespace XBMCVirtualController
             }
             else if (e.Button == MouseButtons.Left)
             {
+
                 bool buttonPressed = false;
                 foreach (skinControl skincontrol in skinEngine.Skin.controls)
                 {
@@ -147,11 +158,38 @@ namespace XBMCVirtualController
                             if (e.Y >= ypos && e.Y <= ypos + height)
                             {
                                 string button = skincontrol.id.ToLower();
-                                string buttoncommand = skincontrol.buttoncommand.ToLower();
+                                string buttoncommand;
+
+                                if (!skinEngine.AltMode || skincontrol.altbuttoncommand == null)
+                                    buttoncommand = skincontrol.buttoncommand;
+                                else
+                                    buttoncommand = skincontrol.altbuttoncommand;
+
                                 if (button != "closeprogram")
                                 {
                                     if (buttoncommand != null)
-                                        eventClient.SendButton(buttoncommand, "R1", ButtonFlagsType.BTN_DOWN);
+                                    {
+                                        
+                                        string device = "R1";
+                                        string command = "";
+                                        string[] buttonParams = buttoncommand.Split(',');
+
+                                        if (buttonParams.Length == 1)
+                                            command = buttonParams[0].Trim().ToLower();
+                                        else
+                                        {
+                                            device = buttonParams[0].Trim().ToUpper();
+                                            command = buttonParams[1].Trim().ToLower();
+                                        }
+
+                                        if (command != "")
+                                        {
+                                            ButtonFlagsType buttonFlagType = ButtonFlagsType.BTN_DOWN;
+                                            if (toolStripMenuItemSendSingleClick.Checked) buttonFlagType = buttonFlagType | ButtonFlagsType.BTN_NO_REPEAT;
+                                            eventClient.SendButton(command, device, buttonFlagType);
+                                        }
+
+                                    }
                                     buttonPressed = true;
                                     this.SetBitmap(skinEngine.RenderSkin(skinEngine.Skin, button, false, true));
                                     break;
@@ -178,7 +216,7 @@ namespace XBMCVirtualController
         private void Main_MouseUp(object sender, MouseEventArgs e)
         {
             isDragging = false;
-            eventClient.SendButton();
+            if (!toolStripMenuItemSendSingleClick.Checked) eventClient.SendButton();
             this.SetBitmap(skinEngine.RenderSkin(skinEngine.Skin));
         }
 
@@ -186,14 +224,14 @@ namespace XBMCVirtualController
         {
             this.SetBitmap(skinEngine.RenderSkin(skinEngine.Skin));
             lastControl = null;
-            toolTip.Hide(this);   
+            toolTip.Hide(this);
         }
 
         private void Main_MouseMove(object sender, MouseEventArgs e)
         {
             if (isDragging)
             {
-                this.Location = new Point(this.Location.X + (e.X - startDragLocation.X), this.Location.Y + (e.Y - startDragLocation.Y));
+                SnapToDesktopBorder(new Point(this.Location.X + (e.X - startDragLocation.X), this.Location.Y + (e.Y - startDragLocation.Y)));
             }
             else
             {
@@ -254,12 +292,40 @@ namespace XBMCVirtualController
             eventClient.SendPing();
         }
 
+        public void SnapToDesktopBorder(Point position)
+        {
+
+            const int snapOffset = 30;
+
+            Screen screen = Screen.FromPoint(position);
+
+            // Left border
+            if (position.X >= screen.WorkingArea.X - snapOffset && position.X <= screen.WorkingArea.X + snapOffset)
+                position.X = screen.WorkingArea.X;
+
+            //Top border
+            if (position.Y >= screen.WorkingArea.Y - snapOffset && position.Y <= screen.WorkingArea.Y + snapOffset)
+                position.Y = screen.WorkingArea.Y;
+
+            // Right border
+            if (position.X + this.Width <= screen.WorkingArea.Right + snapOffset && position.X + this.Width >= screen.WorkingArea.Right - snapOffset)
+                position.X = screen.WorkingArea.Right - this.Width;
+
+            // Bottom border
+            if (position.Y + this.Height <= screen.WorkingArea.Bottom + snapOffset && position.Y + this.Height >= screen.WorkingArea.Bottom - snapOffset)
+                position.Y = screen.WorkingArea.Bottom - this.Height;
+
+            this.Location = position;
+
+        }
+
         private void SaveSettings()
         {
             if (!errorOccured)
             {
                 Properties.Settings.Default.SkinName = skinName;
                 Properties.Settings.Default.WindowLocation = this.Location;
+                Properties.Settings.Default.SendSingleClick = toolStripMenuItemSendSingleClick.Checked;
                 Properties.Settings.Default.Save();
             }
         }
@@ -375,6 +441,28 @@ namespace XBMCVirtualController
         private void toolTip_Popup(object sender, PopupEventArgs e)
         {
 
+        }
+
+        private void toolStripMenuItemConnection_Click(object sender, EventArgs e)
+        {
+            Connection connect = new Connection();
+            if (connect.ShowDialog(this) == DialogResult.OK)
+            {
+                eventClient.Disconnect();
+                eventClient.Connect(connect.Address, connect.Port);
+                eventClient.SendHelo("Team Blackbolt - XBMC Virtual Remote", IconType.ICON_PNG, Helper.AppPath + "remotecontrol.png");
+            }
+        }
+
+        private void toolStripMenuItemSendSingleClick_Click(object sender, EventArgs e)
+        {
+            toolStripMenuItemSendSingleClick.Checked = !toolStripMenuItemSendSingleClick.Checked;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            skinEngine.AltMode = !skinEngine.AltMode;
+            this.SetBitmap(skinEngine.RenderSkin(skinEngine.Skin));
         }
 
     }

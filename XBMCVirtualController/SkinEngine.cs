@@ -32,6 +32,7 @@ namespace XBMCVirtualController
         private bool lastShowLed = false;
         private skin skinfile;
         private float scale = 1.0f;
+        private bool altMode = false;
         private PerPixelAlphaForm appPerPixelAlphaForm;
 
         public SkinEngine(PerPixelAlphaForm AppPerPixelAlphaForm)
@@ -64,6 +65,18 @@ namespace XBMCVirtualController
             }
         }
 
+        public bool AltMode
+        {
+            get
+            {
+                return this.altMode;
+            }
+            set
+            {
+                this.altMode = value;
+            }
+        }
+
         private string ValidateSkin(skin skinfile, string SkinPath)
         {
 
@@ -79,6 +92,8 @@ namespace XBMCVirtualController
             else if (!ushort.TryParse(skinfile.layout.height, out temp))
                 return "layout height should be numeric.";
             else if (skinfile.layout.texture != null && skinfile.layout.texture != "" && !File.Exists(SkinPath + skinfile.layout.texture))
+                return "layout texture does not appear to exist.";
+            else if (skinfile.layout.alttexture != null && skinfile.layout.alttexture != "" && !File.Exists(SkinPath + skinfile.layout.alttexture))
                 return "layout texture does not appear to exist.";
 
             //Validate controls section
@@ -110,9 +125,16 @@ namespace XBMCVirtualController
                     return "control '" + skincontrol.type.ToLower() + "'  texturehover for '" + skincontrol.id + "' does not appear to exist.";
                 else if (skincontrol.type.ToLower() == "button" && skincontrol.textureclick != null && skincontrol.textureclick != "" && !File.Exists(SkinPath + skincontrol.textureclick))
                     return "control '" + skincontrol.type.ToLower() + "'  textureclick for '" + skincontrol.id + "' does not appear to exist.";
-
+                else if (skincontrol.type.ToLower() == "button" && skincontrol.alttexturehover != null && skincontrol.alttexturehover != "" && !File.Exists(SkinPath + skincontrol.alttexturehover))
+                    return "control '" + skincontrol.type.ToLower() + "'  alttexturehover for '" + skincontrol.id + "' does not appear to exist.";
+                else if (skincontrol.type.ToLower() == "button" && skincontrol.alttextureclick != null && skincontrol.alttextureclick != "" && !File.Exists(SkinPath + skincontrol.alttextureclick))
+                    return "control '" + skincontrol.type.ToLower() + "'  alttextureclick for '" + skincontrol.id + "' does not appear to exist.";
+                
                 if (skinfile.layout.texture != null && skinfile.layout.texture != "")
                     skinfile.layout.LoadedTexture = Image.FromFile(SkinPath + skinfile.layout.texture);
+
+                if (skinfile.layout.alttexture != null && skinfile.layout.alttexture != "")
+                    skinfile.layout.LoadedAltTexture = Image.FromFile(SkinPath + skinfile.layout.alttexture);
                
                 if (skincontrol.type.ToLower() == "image")
                 {
@@ -126,6 +148,10 @@ namespace XBMCVirtualController
                         skincontrol.LoadedTextureHover = Image.FromFile(SkinPath + skincontrol.texturehover);
                     if (skincontrol.textureclick != null && skincontrol.textureclick != "")
                         skincontrol.LoadedTextureClick = Image.FromFile(SkinPath + skincontrol.textureclick);
+                    if (skincontrol.alttexturehover != null && skincontrol.alttexturehover != "")
+                        skincontrol.LoadedAltTextureHover = Image.FromFile(SkinPath + skincontrol.alttexturehover);
+                    if (skincontrol.alttextureclick != null && skincontrol.alttextureclick != "")
+                        skincontrol.LoadedAltTextureClick = Image.FromFile(SkinPath + skincontrol.alttextureclick);
                 }
 
             }
@@ -190,7 +216,10 @@ namespace XBMCVirtualController
             Graphics graphicsRender = Graphics.FromImage(renderBitmap);
             graphicsRender.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
-            graphicsRender.DrawImage(skinfile.layout.LoadedTexture, 0, 0, renderWidth, renderHeight);
+            if (!altMode || skinfile.layout.LoadedAltTexture == null)
+                graphicsRender.DrawImage(skinfile.layout.LoadedTexture, 0, 0, renderWidth, renderHeight);
+            else
+                graphicsRender.DrawImage(skinfile.layout.LoadedAltTexture, 0, 0, renderWidth, renderHeight);
 
             foreach (skinControl skincontrol in skinfile.controls)
             {
@@ -211,12 +240,18 @@ namespace XBMCVirtualController
                 {
                     if (hover && skincontrol.id == buttonid && skincontrol.LoadedTextureHover != null)
                     {
-                        graphicsRender.DrawImage(skincontrol.LoadedTextureHover, xpos, ypos, width, height);
+                        if (!altMode || skincontrol.LoadedAltTextureHover == null)
+                            graphicsRender.DrawImage(skincontrol.LoadedTextureHover, xpos, ypos, width, height);
+                        else
+                            graphicsRender.DrawImage(skincontrol.LoadedAltTextureHover, xpos, ypos, width, height);
                         break;
                     }
                     else if (!hover && skincontrol.id == buttonid && skincontrol.LoadedTextureClick != null)
                     {
-                        graphicsRender.DrawImage(skincontrol.LoadedTextureClick, xpos, ypos, width, height);
+                        if (!altMode || skincontrol.LoadedAltTextureClick == null)
+                            graphicsRender.DrawImage(skincontrol.LoadedTextureClick, xpos, ypos, width, height);
+                        else
+                            graphicsRender.DrawImage(skincontrol.LoadedAltTextureClick, xpos, ypos, width, height);
                         break;
                     }
                 }

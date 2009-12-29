@@ -23,13 +23,13 @@ using System.Windows.Forms;
 
 namespace XBMCVirtualController
 {
-    public partial class Connect : Form
+    public partial class Connection : Form
     {
 
         public string Address;
         public int Port;
 
-        public Connect()
+        public Connection()
         {
             InitializeComponent();
         }
@@ -44,11 +44,17 @@ namespace XBMCVirtualController
         {
             Address = textAddress.Text;
             int.TryParse(textPort.Text, out Port);
+            Properties.Settings.Default.Address = textAddress.Text;
+            Properties.Settings.Default.Port = Port;
+            Properties.Settings.Default.AutoConnect = checkBoxAutoConnect.Checked;
+            Properties.Settings.Default.Save();
         }
 
-        private void Connect_Load(object sender, EventArgs e)
+        private void Connection_Load(object sender, EventArgs e)
         {
-
+            textAddress.Text = Properties.Settings.Default.Address;
+            textPort.Text = Properties.Settings.Default.Port.ToString();
+            checkBoxAutoConnect.Checked = Properties.Settings.Default.AutoConnect;
         }
 
     }
